@@ -1,5 +1,8 @@
 ![LightDock](docs/media/lightdock_banner.png "LightDock")
 
+| WARNING: This is the repository for the Python 2.7 series. Please visit [https://lightdock.org](https://lightdock.org) for an updated version of this software (including Python 3 support) |
+| --- |
+
 #### Table of Contents
 
 - [1. Introduction](#1-introduction)
@@ -16,17 +19,15 @@ LightDock is a protein-protein, protein-peptide and protein-DNA docking framewor
 The LightDock framework is highly versatile, with many options that can be further developed and optimized by the users: it can accept any user-defined scoring function, can use local gradient-free minimization, the simulation can be restrained from the beginning to focus on user-assigned interacting regions, **it supports residue restraints in both receptor and ligand partners** and it has support for the use of pre-calculated conformers for both receptor and ligand.
 
 ## 2. Reference
-The first version of the LightDock protocol was published in [Oxford Bioinformatics](https://academic.oup.com/bioinformatics) journal. Please cite this reference if you use LightDock in your research:
+LightDock protocol and the updates to make use of residue restraints have been published in [Oxford Bioinformatics](https://academic.oup.com/bioinformatics) journal. Please cite these references if you use LightDock in your research:
 
 **LightDock: a new multi-scale approach to protein–protein docking**<br>
 [Brian Jiménez-García](http://bjimenezgarcia.com), Jorge Roel-Touris, Miguel Romero-Durana, Miquel Vidal, Daniel Jiménez-González and Juan Fernández-Recio<br>
 *Bioinformatics*, Volume 34, Issue 1, 1 January 2018, Pages 49–55, [https://doi.org/10.1093/bioinformatics/btx555](https://doi.org/10.1093/bioinformatics/btx555)
 
-A preprint about the implementation details and performance of the new protocol for including residue restraints is avaiable at [biorxiv](https://www.biorxiv.org/content/10.1101/595983v1):
-
 **LightDock goes information-driven**<br>
-Jorge Roel-Touris, Alexandre M.J.J. Bonvin, Brian Jiménez-García<br>
-*bioRxiv* 595983; doi: [https://doi.org/10.1101/595983](https://doi.org/10.1101/595983)
+Jorge Roel-Touris, Alexandre M.J.J. Bonvin, [Brian Jiménez-García](http://bjimenezgarcia.com)<br>
+*Bioinformatics*, btz642; doi: [https://doi.org/10.1093/bioinformatics/btz642](https://doi.org/10.1093/bioinformatics/btz642)
 
 ## 3. Installation
 ### 3.1. Dependencies
@@ -138,12 +139,7 @@ export LIGHTDOCK_LONG_TEST=true
 
 This GitHub [README.md](README.md) file is intended as an installation guide.
 
-The complete documentation about how to run the LightDock protocol can be found at:
-
-<p align="center">
-	<b><a href="https://brianjimenez.github.io/lightdock">https://brianjimenez.github.io/lightdock/</a>
-	</b>
-</p>
+The complete documentation about how to run the LightDock protocol can be found at [https://lightdock.org](https://lightdock.org).
 
 
 ## 5. Get Help
