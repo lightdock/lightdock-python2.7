@@ -91,9 +91,9 @@ $ cat setup.json
 
 ```
 
-Besides of <code>setup.json</code>, we find that several <code>lightdock\*</code> files have been generated as well as an <code>init</code> directory. This directory contains both the exact positions of the swarms (in this case a unique swarm <code>cluster\_centers.pdb</code>) and the starting positions of the glowworms (in this case 10 ligand conformations <code>starting\_positions\_0.pdb</code>). In the latter, <code>0</code> indicates the ID of the swarm. Please refer to the following picture for a graphical description of the setup:
+Besides of <code>setup.json</code>, we find that several <code>lightdock#</code> files have been generated as well as an <code>init</code> directory. This directory contains both the exact positions of the swarms (in this case a unique swarm <code>cluster_centers.pdb</code>) and the starting positions of the glowworms (in this case 10 ligand conformations <code>starting_positions_0.pdb</code>). In the latter, <code>0</code> indicates the ID of the swarm. Please refer to the following picture for a graphical description of the setup:
 
-![2uuy-setup](media/2uuy-swarm.png "2uuy-setup")
+![2uuy-setup](media/2uuy_swarm.png "2uuy-setup")
 
 #### 1.1.3. LightDock run
 Once the setup is successful, execute <code>lightdock3.py</code> script in order to run your first LightDock simulation. If you execute <code>lightdock3.py</code> without arguments a little help is displayed:
