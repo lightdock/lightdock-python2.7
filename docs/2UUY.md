@@ -9,34 +9,43 @@
 The simplest way to perform a protein-protein docking in LightDock is to use default parameters and to only provide two [PDB](http://www.rcsb.org/pdb/static.do?p=file_formats/pdb/index.html) files for both receptor and ligand proteins.
 
 ### 1.1. Simplest example
-You fill find in the [examples](https://github.com/brianjimenez/lightdock/tree/master/examples/) a folder [2UUY](https://github.com/brianjimenez/lightdock/tree/master/examples/2UUY) with a PDB file for the receptor [2UUY_rec.pdb](https://github.com/brianjimenez/lightdock/tree/master/examples/2UUY/2UUY_rec.pdb) and the ligand [2UUY_lig.pdb](https://github.com/brianjimenez/lightdock/tree/master/examples/2UUY2UUY_lig.pdb).
 
-In previous versions of LightDock, a setup step was not required. This has changed from **version 0.5.0** and now a simulation setup is required. Follow the next steps in order to perform your first protein-protein docking with LightDock:
+In this basic example, we will reconstitute the PDB complex [2UUY](https://www.rcsb.org/structure/2UUY), starting from its unbound constituents.
+
+In previous versions of LightDock, a setup step was not required. This has changed from **version 0.5.0** and now a simulation setup is required. Please, make sure that you have the Python3 version of LightDock installed <code>pip3 install lightdock</code>. Follow the next steps in order to perform your first protein-protein docking with LightDock:
 
 #### 1.1.1. Copying data
 Create a directory and copy the sample data provided:
 
 ```bash
-cd $LIGHTDOCK_HOME
-cd examples
-mkdir test
-cd test
-cp ../2UUY/2UUY*.pdb .
+cd ~/Desktop;
+mkdir test;
+cd test;
+wget https://raw.githubusercontent.com/brianjimenez/lightdock/master/examples/2UUY/2UUY_rec.pdb;
+wget https://raw.githubusercontent.com/brianjimenez/lightdock/master/examples/2UUY/2UUY_lig.pdb;
 ```
 
 #### 1.1.2. LightDock setup
-Execute `lightdock_setup` script in order to prepare your LightDock simulation:
+Execute <code>lightdock3_setup.py</code> script in order to prepare your LightDock simulation. If you execute <code>lightdock3_setup.py</code> without arguments a little help is displayed:
 
 ```bash
-lightdock_setup 2UUY_rec.pdb 2UUY_lig.pdb 1 10
+lightdock3_setup.py
+
+usage: lightdock_setup [-h] [--seed_points STARTING_POINTS_SEED]
+                       [-ft ftdock_file] [--noxt] [-anm] [--seed_anm ANM_SEED]
+                       [-anm_rec ANM_REC] [-anm_lig ANM_LIG] [-rst restraints]
+                       [-membrane]
+                       receptor_pdb_file ligand_pdb_file swarms glowworms
+lightdock_setup: error: too few arguments
 ```
 
-The previous command executes LightDock with the default parameters and only calculating 1 swarm containing 10 glowworms.
+There are **four** arguments needed (the ones not enclosed by [ ]) in order to setup a basic lightdock simulation. For more information about the setup stage, please check the [LightDock basics](https://lightdock.org/tutorials/basics#2-setup-a-simulation) 
 
-Here it is the output:
+For the sake of simplicity, we will generate **only 1 swarm** containing **10 glowworms** with the following command:
 
-```
-@> ProDy is configured: verbosity='info'
+```bash
+lightdock3_setup.py 2UUY_rec.pdb 2UUY_lig.pdb 1 10
+
 [lightdock_setup] INFO: Reading structure from 2UUY_rec.pdb PDB file...
 [lightdock_setup] INFO: 1628 atoms, 223 residues read.
 [lightdock_setup] INFO: Reading structure from 2UUY_lig.pdb PDB file...
@@ -54,32 +63,60 @@ Here it is the output:
 [lightdock_setup] INFO: Done.
 [lightdock_setup] INFO: Preparing environment
 [lightdock_setup] INFO: Done.
-[lightdock_setup] INFO: LightDock setup OK 
+[lightdock_setup] INFO: LightDock setup OK
 ```
 
-**A new file called** `setup.json` **has been generated with the simulation information** .
-
-If you execute `lightdock_setup` without arguments a little help is displayed:
+**A new file called** <code>setup.json</code> **has been generated with the simulation information**:
 
 ```bash
-usage: lightdock_setup [-h] [--seed_points STARTING_POINTS_SEED]
-                       [-ft ftdock_file] [--noxt] [-anm] [--seed_anm ANM_SEED]
-                       [-anm_rec ANM_REC] [-anm_lig ANM_LIG] [-rst restraints]
-                       [-membrane]
-                       receptor_pdb_file ligand_pdb_file swarms glowworms
-lightdock_setup: error: too few arguments
+$ cat setup.json
+
+{
+    "anm_lig": 10,
+    "anm_rec": 10,
+    "anm_seed": 324324,
+    "ftdock_file": null,
+    "glowworms": 10,
+    "ligand_pdb": "2UUY_lig.pdb",
+    "membrane": false,
+    "noh": false,
+    "noxt": false,
+    "receptor_pdb": "2UUY_rec.pdb",
+    "restraints": null,
+    "starting_points_seed": 324324,
+    "swarms": 1,
+    "use_anm": false,
+    "verbose_parser": false
+}
+
 ```
+
+Besides of <code>setup.json</code>, we find that several <code>lightdock\*</code> files have been generated as well as an <code>init</code> directory. This directory contains both the exact positions of the swarms (in this case a unique swarm <code>cluster\_centers.pdb</code>) and the starting positions of the glowworms (in this case 10 ligand conformations <code>starting\_positions\_0.pdb</code>). In the latter, <code>0</code> indicates the ID of the swarm. Please refer to the following picture for a graphical description of the setup:
+
+![2uuy-setup](media/2uuy-swarm.png "2uuy-setup")
 
 #### 1.1.3. LightDock run
-Execute `lightdock` script in order to run your first LightDock simulation:
+Once the setup is successful, execute <code>lightdock3.py</code> script in order to run your first LightDock simulation. If you execute <code>lightdock3.py</code> without arguments a little help is displayed:
 
 ```bash
-lightdock setup.json 10
+lightdock3.py
+
+usage: lightdock [-h] [-f configuration_file] [-s SCORING_FUNCTION]
+                 [-sg GSO_SEED] [-t TRANSLATION_STEP] [-r ROTATION_STEP] [-V]
+                 [-c CORES] [--profile] [-mpi] [-ns NMODES_STEP] [-min]
+                 [--listscoring]
+                 setup_file steps
+lightdock: error: too few arguments
 ```
 
-You will see an output like this:
+There are **two** arguments needed (the ones not enclosed by [ ]) in order to run lightdock simulation. For more information about the simulation stage, please check the [LightDock basics](https://lightdock.org/tutorials/basics#3-run-a-simulation)
 
-```
+In this case, we will only perform **10 steps** of GSO optimization as:
+
+```bash
+lightdock3.py setup.json 10
+
+
 @> ProDy is configured: verbosity='info'
 [lightdock] INFO: simulation parameters saved to ./lightdock.info
 [lightdock_setup] INFO: Reading structure from 2UUY_rec.pdb PDB file...
@@ -116,27 +153,27 @@ You will see an output like this:
 [lightdock] INFO: Finished.
 ```
 
-By default, LightDock makes use of the DFIRE scoring function. There is a warning on the number of CPU cores used. By default, LightDock will look for the total number of cores. If you want to specify a different number, use the flag <code>-c NUMBER_CORES</code>. **Note that MPI is also supported using the -mpi flag**.
+By default, LightDock makes use of the DFIRE scoring function. For a complete list of supported socring functions, please run <code>lightdock --listscoring</code>.
 
-For each of the swarms, there is a folder called <code>swarm_X</code>. In our example, we use only one swarm so there is only a folder <code>swarm_0</code>. Inside, we can find the file containing the result of the simulation `gso_10.out`. See an example of this file from the *2UUY* example: [gso_5.out](examples/2UUY/cluster_0/gso_5.out). 
+There is a warning on the number of CPU cores used. By default, LightDock will look for the total number of cores. If you want to specify a different number, use the flag <code>-c NUMBER_CORES</code>. **Note that MPI is also supported using the -mpi flag**.
 
-In this file, every line corresponds to a glowworm agent in the algorithm:
+For each of the swarms, there is a folder called <code>swarm_X</code>. In our example, we only generated **one swarm** so there is only a folder <code>swarm_0</code>. Inside, we can find the file containing the result of the simulation <code>gso_10.out</code>. In the output files <code>gso_X.out</code>, X refers to the step number.
 
-```
+In this file, every line corresponds to a glowworm agent in the algorithm. The numbers enclosed by ( ), refer to the x,y,z coordinates in the translational space + the quaternion vector (q = a + 0i + 0j + 0k) in the rotational space. If ANM were enabled, this vector would expand by the number normal modes considered for receptor and ligand respectively. The coordinates are followed by the ID of the complex and the last column refers to the scoring, in this case as calculated wiht DFIRE (fastdfire).
+
+```bash
+head -2 swarm_0/gso_10.out
+
 #Coordinates  RecID  LigID  Luciferin  Neighbor's number  Vision Range  Scoring
-(31.4171143,  1.8570079, -6.3956223, -0.1058407, -0.4849369,  0.5997430, -0.6276482)    0    0  10.79432165  0 2.200   7.52191884
+(31.4171143,  1.8570079, -6.3956223, -0.1058407, -0.4849369,  0.5997430, -0.6276482)    0    0  11.25395618  0 4.200   7.52800101
 ```
 
 Finally, to generate the final docked PDB structures, we will use the script **lgd_generate_conformations.py**:
 
 ```bash
-cd swarm_0
+cd swarm_0;
 lgd_generate_conformations.py ../2UUY_rec.pdb ../2UUY_lig.pdb gso_10.out 10
-```
 
-Output is:
-
-```
 @> ProDy is configured: verbosity='info'
 [generate_conformations] INFO: Reading ../lightdock_2UUY_rec.pdb receptor PDB file...
 [generate_conformations] INFO: 1628 atoms, 223 residues read.
@@ -147,3 +184,15 @@ Output is:
 ```
 
 Inside the <code>swarm_0</code> folder 10 new PDB structures corresponding to the 10 glowworm agents used in the example have been generated.
+
+For a more complete description of the algorithm as well as different tutorials, please refer to [LightDock](https://lightdock.org/), or check the following references:
+
+LightDock protocol and the updates to make use of residue restraints have been published in [Oxford Bioinformatics](https://academic.oup.com/bioinformatics) journal. Please cite these references if you use LightDock in your research:
+
+**LightDock: a new multi-scale approach to protein–protein docking**<br>
+[Brian Jiménez-García](http://bjimenezgarcia.com), Jorge Roel-Touris, Miguel Romero-Durana, Miquel Vidal, Daniel Jiménez-González and Juan Fernández-Recio<br>
+*Bioinformatics*, Volume 34, Issue 1, 1 January 2018, Pages 49–55, [https://doi.org/10.1093/bioinformatics/btx555](https://doi.org/10.1093/bioinformatics/btx555)
+
+ **LightDock goes information-driven**<br>
+ Jorge Roel-Touris, Alexandre M.J.J. Bonvin and [Brian Jiménez-García](http://bjimenezgarcia.com)<br>
+ *Bioinformatics*, btz642; doi: [https://doi.org/10.1093/bioinformatics/btz642](https://doi.org/10.1093/bioinformatics/btz642)
