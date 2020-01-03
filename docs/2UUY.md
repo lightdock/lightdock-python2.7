@@ -93,7 +93,9 @@ $ cat setup.json
 
 Besides of <code>setup.json</code>, we find that several <code>lightdock#</code> files have been generated as well as an <code>init</code> directory. This directory contains both the exact positions of the swarms (in this case a unique swarm <code>cluster_centers.pdb</code>) and the starting positions of the glowworms (in this case 10 ligand conformations <code>starting_positions_0.pdb</code>). In the latter, <code>0</code> indicates the ID of the swarm. Please refer to the following picture for a graphical description of the setup:
 
+<p align="center">
 ![2uuy-setup](media/2uuy_swarm.png "2uuy-setup")
+</p>
 
 #### 1.1.3. LightDock run
 Once the setup is successful, execute <code>lightdock3.py</code> script in order to run your first LightDock simulation. If you execute <code>lightdock3.py</code> without arguments a little help is displayed:
@@ -186,8 +188,6 @@ lgd_generate_conformations.py ../2UUY_rec.pdb ../2UUY_lig.pdb gso_10.out 10
 Inside the <code>swarm_0</code> folder 10 new PDB structures corresponding to the 10 glowworm agents used in the example have been generated.
 
 For a more complete description of the algorithm as well as different tutorials, please refer to [LightDock](https://lightdock.org/), or check the following references:
-
-LightDock protocol and the updates to make use of residue restraints have been published in [Oxford Bioinformatics](https://academic.oup.com/bioinformatics) journal. Please cite these references if you use LightDock in your research:
 
 **LightDock: a new multi-scale approach to protein–protein docking**<br>
 [Brian Jiménez-García](http://bjimenezgarcia.com), Jorge Roel-Touris, Miguel Romero-Durana, Miquel Vidal, Daniel Jiménez-González and Juan Fernández-Recio<br>
