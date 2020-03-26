@@ -1,7 +1,9 @@
-![LightDock](docs/media/lightdock_banner.png "LightDock")
+![LightDock](docs/media/lightdock_logo.png "LightDock")
 
-| WARNING: This is the repository for the Python 2.7 series. Please visit [https://lightdock.org](https://lightdock.org) for an updated version of this software (including Python 3 support) |
-| --- |
+
+| :warning: WARNING          |
+|:---------------------------|
+|  This is a **deprecated** repository for the Python 2.7 series. Please visit [https://lightdock.org](https://lightdock.org) or [https://github.com/lightdock/lightdock](https://github.com/lightdock/lightdock) for an updated version of this software (**including Python 3 support**) |
 
 #### Table of Contents
 
@@ -88,10 +90,10 @@ For more recent versions of freesasa, please check the instructions for installi
 The fastest way to install LightDock is to use `git` to clone the repository from GitHub:
 
 ```bash
-git clone https://github.com/brianjimenez/lightdock.git
+git clone https://github.com/lightdock/lightdock-python2.7.git
 ```
 
-A directory called `lightdock` is now available. This is the path necessary for setting the enviroment variable `LIGHTDOCK_HOME` in your bash. Change your `~/.bashrc` accordingly (add the following lines to your `~/.bashrc`):
+A directory called `lightdock-python2.7` is now available. This is the path necessary for setting the enviroment variable `LIGHTDOCK_HOME` in your bash. Change your `~/.bashrc` accordingly (add the following lines to your `~/.bashrc`):
 
 ```bash
 export LIGHTDOCK_HOME=/path/to/lightdock/folder
@@ -137,18 +139,14 @@ export LIGHTDOCK_LONG_TEST=true
 
 ## 4. Documentation
 
-This GitHub [README.md](README.md) file is intended as an installation guide.
+This GitHub [README.md](README.md) file is intended **only** as an installation guide.
 
 The complete documentation about how to run the LightDock protocol can be found at [https://lightdock.org](https://lightdock.org).
 
 
 ## 5. Get Help
 
-LightDock is being actively developed and some issues may arise or you may get some extra help to run LightDock. In those cases, there are two main ways to get help:
-
-1. Read the [FAQ](https://lightdock.org/tutorials/faq) in case your problem is known
-2. Open a [new issue in this repository](https://github.com/brianjimenez/lightdock/issues/new)
-3. Or write an email to <b.jimenezgarcia@uu.nl>
+Please visit the [official website](https://lightdock.org/about/#help-and-new-features-request) for instructions. 
 
 
 
